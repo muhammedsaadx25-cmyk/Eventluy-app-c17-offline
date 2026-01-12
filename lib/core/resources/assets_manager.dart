@@ -1,6 +1,7 @@
 abstract class ImageAssets{
   static const String base = 'assets/images/';
   static const String eventlyLogo = '${base}Logo.png';
+  static const String sportsLight = '${base}sports_light.png';
 }
 
 
