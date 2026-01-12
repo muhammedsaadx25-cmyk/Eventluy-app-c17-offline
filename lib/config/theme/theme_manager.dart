@@ -13,7 +13,18 @@ class ThemeManager{
         centerTitle: true,
       titleTextStyle: TextStyle(fontSize: 22, fontWeight: FontWeight.w400, color: ColorsManager.blue)
     ),
-    scaffoldBackgroundColor: ColorsManager.white,
+    scaffoldBackgroundColor: ColorsManager.primary,
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      type: BottomNavigationBarType.fixed,
+      backgroundColor: ColorsManager.primary,
+      selectedItemColor: ColorsManager.darkBlue,
+      unselectedItemColor:  ColorsManager.grey
+    ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: ColorsManager.darkBlue,
+      foregroundColor: ColorsManager.white,
+      shape: CircleBorder(),
+    ),
     inputDecorationTheme: InputDecorationTheme(
 
       labelStyle: GoogleFonts.roboto(fontSize: 16.sp, fontWeight: FontWeight.w500, color: ColorsManager.grey,),
