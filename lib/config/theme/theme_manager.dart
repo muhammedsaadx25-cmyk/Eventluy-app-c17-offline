@@ -5,7 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ThemeManager{
   static final ThemeData light = ThemeData(
-    primaryColor: ColorsManager.darkBlue,
+
+    primaryColor: ColorsManager.white,
     appBarTheme: AppBarTheme(
       iconTheme: IconThemeData(
         color: ColorsManager.blue
@@ -83,6 +84,8 @@ class ThemeManager{
       titleMedium: GoogleFonts.poppins(fontSize: 20.sp, color: ColorsManager.black, fontWeight: FontWeight.w500),
       bodySmall: GoogleFonts.inter(fontSize:16.sp, color: ColorsManager.black, fontWeight: FontWeight.w500 ),
       bodyMedium: GoogleFonts.poppins(fontSize:14.sp, color: ColorsManager.black, fontWeight: FontWeight.w500 ),
+      labelSmall: GoogleFonts.poppins(fontSize:14.sp, color: ColorsManager.grey, fontWeight: FontWeight.w400 ),
+      labelMedium: GoogleFonts.poppins(fontSize:16.sp, color: ColorsManager.black, fontWeight: FontWeight.w500 ),
 
     )
     ,
