@@ -42,10 +42,10 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: SvgPicture.asset(SvgAssets.unSelectedHomeIcon), label: "Home"),
         BottomNavigationBarItem(
             activeIcon:  SvgPicture.asset(SvgAssets.selectedFavIcon),
-            icon: SvgPicture.asset(SvgAssets.unSelectedFavIcon), label: "Home"),
+            icon: SvgPicture.asset(SvgAssets.unSelectedFavIcon), label: "Favourite"),
         BottomNavigationBarItem(
             activeIcon:  SvgPicture.asset(SvgAssets.selectedProfileIcon),
-            icon: SvgPicture.asset(SvgAssets.unSelectedProfileIcon), label: "Home"),
+            icon: SvgPicture.asset(SvgAssets.unSelectedProfileIcon), label: "Profile"),
 
       ],
     );

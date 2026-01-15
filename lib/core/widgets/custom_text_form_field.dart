@@ -2,10 +2,12 @@ import 'package:evently/core/resources/colors_mnaager.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
-  const CustomTextFormField({super.key, required this.labelText,  this.prefixIcon, this.suffixIcon, this.controller, this.validator});
-final String labelText;
+  const CustomTextFormField({super.key,  this.labelText,  this.hintText,this.prefixIcon, this.suffixIcon, this.controller, this.validator});
+final String? labelText;
+final String? hintText;
 final Widget? prefixIcon;
 final Widget? suffixIcon;
+
 final TextEditingController? controller;
 final String? Function(String?)? validator;
   @override
@@ -15,6 +17,7 @@ final String? Function(String?)? validator;
       validator: validator,
       decoration: InputDecoration(
         labelText: labelText,
+        hintText: hintText,
         prefixIcon: prefixIcon ,
         suffixIcon:suffixIcon ,
 

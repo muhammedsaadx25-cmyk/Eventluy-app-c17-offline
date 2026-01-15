@@ -29,6 +29,7 @@ class ThemeManager{
     inputDecorationTheme: InputDecorationTheme(
 
       labelStyle: GoogleFonts.roboto(fontSize: 16.sp, fontWeight: FontWeight.w500, color: ColorsManager.grey,),
+      hintStyle: GoogleFonts.roboto(fontSize: 16.sp, fontWeight: FontWeight.w500, color: ColorsManager.grey,),
 
       enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16.r),
