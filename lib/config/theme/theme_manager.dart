@@ -9,11 +9,11 @@ class ThemeManager{
     primaryColor: ColorsManager.white,
     appBarTheme: AppBarTheme(
       iconTheme: IconThemeData(
-        color: ColorsManager.blue
+        color: ColorsManager.darkBlue,
       ),
-      backgroundColor: ColorsManager.white,
+      backgroundColor: ColorsManager.primary,
         centerTitle: true,
-      titleTextStyle: TextStyle(fontSize: 22, fontWeight: FontWeight.w400, color: ColorsManager.blue)
+      titleTextStyle: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500, color: ColorsManager.black)
     ),
     scaffoldBackgroundColor: ColorsManager.primary,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
@@ -54,7 +54,7 @@ class ThemeManager{
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.r)
         ),
-        backgroundColor: ColorsManager.blue,
+        backgroundColor: ColorsManager.darkBlue,
         foregroundColor: ColorsManager.white,
         textStyle: GoogleFonts.inter(fontSize: 20.sp, fontWeight: FontWeight.w500, color: ColorsManager.white)
       )

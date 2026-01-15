@@ -1,4 +1,5 @@
 import 'package:evently/core/resources/colors_mnaager.dart';
+import 'package:evently/core/widgets/custom_tab_bar.dart';
 import 'package:evently/features/home/tabs/home_tab/event_item.dart';
 import 'package:evently/features/home/tabs/home_tab/tab_item.dart';
 import 'package:evently/models/category_model.dart';
@@ -62,35 +63,7 @@ class _HomeTabState extends State<HomeTab> {
               ),
             ),
             SizedBox(height: 24,),
-            DefaultTabController(
-              length: CategoryModel.categories.length,
-              child: TabBar(
-                padding: EdgeInsets.only(left: 16),
-                tabAlignment: TabAlignment.start,
-                onTap: (index){
-                  setState(() {
-                    selectedIndex = index;
-                    print(selectedIndex);
-                  });
-                },
-                isScrollable: true,
-                indicatorColor: Colors.transparent,
-                dividerColor: Colors.transparent,
-                tabs: CategoryModel.categories
-                    .map(
-                      (category) => TabItem(
-                        label: category.name,
-                        icon: category.iconData,
-                        selectedBgColor: ColorsManager.darkBlue,
-                        selectedFgColor: ColorsManager.white,
-                        unSelectedBgColor: ColorsManager.white,
-                        unSelectedFgColor: ColorsManager.black,
-                        isSelected: CategoryModel.categories.indexOf(category) == selectedIndex,
-                      ),
-                    )
-                    .toList(),
-              ),
-            ),
+         CustomTabBar(),
            Expanded(
              child: ListView.separated(
                  itemBuilder: (context, index)=> EventItem(event: EventModel(category: CategoryModel.categories[0], title: "Meeting for Updating The Development Method ", description: "Meeting for Updating The Development Method ", date: DateTime.now(), time: TimeOfDay.now()),),

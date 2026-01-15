@@ -1,5 +1,6 @@
 import 'package:evently/features/auth/login/login_screen.dart';
 import 'package:evently/features/auth/register/register_screen.dart';
+import 'package:evently/features/create_event/create_event_screen.dart';
 import 'package:evently/features/home/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -7,6 +8,7 @@ abstract class RoutesManager{
   static const String login = '/login';
   static const String register = '/register';
   static const String homeScreen = '/homeScreen';
+  static const String createEvent = '/createEvent';
 
   static Route? routeGeneration(RouteSettings settings){
     switch(settings.name){
@@ -18,6 +20,9 @@ abstract class RoutesManager{
       }
       case homeScreen:{
         return CupertinoPageRoute(builder: (context)=> HomeScreen());
+      }
+      case createEvent:{
+        return CupertinoPageRoute(builder: (context)=> CreateEventScreen());
       }
     }
   }
