@@ -5,20 +5,22 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ThemeManager{
   static final ThemeData light = ThemeData(
+    iconTheme: IconThemeData(color: ColorsManager.darkBlue,),
 
+    dividerColor: ColorsManager.white,
     primaryColor: ColorsManager.white,
     appBarTheme: AppBarTheme(
       iconTheme: IconThemeData(
         color: ColorsManager.darkBlue,
       ),
-      backgroundColor: ColorsManager.primary,
+      backgroundColor: ColorsManager.primaryLight,
         centerTitle: true,
       titleTextStyle: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500, color: ColorsManager.black)
     ),
-    scaffoldBackgroundColor: ColorsManager.primary,
+    scaffoldBackgroundColor: ColorsManager.primaryLight,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       type: BottomNavigationBarType.fixed,
-      backgroundColor: ColorsManager.primary,
+      backgroundColor: ColorsManager.primaryLight,
       selectedItemColor: ColorsManager.darkBlue,
       unselectedItemColor:  ColorsManager.grey
     ),
@@ -74,13 +76,14 @@ class ThemeManager{
     ),
     cardTheme:  CardThemeData(
 
-      color: ColorsManager.primary,
+      color: ColorsManager.primaryLight,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.r)
       )
     ),
     textTheme: TextTheme(
       titleSmall: GoogleFonts.poppins(fontSize: 14.sp, color: ColorsManager.black, fontWeight: FontWeight.w400),
+      headlineSmall: GoogleFonts.poppins(fontSize: 14.sp, color: ColorsManager.darkBlue, fontWeight: FontWeight.w400),
       titleMedium: GoogleFonts.poppins(fontSize: 20.sp, color: ColorsManager.black, fontWeight: FontWeight.w500),
       bodySmall: GoogleFonts.inter(fontSize:16.sp, color: ColorsManager.black, fontWeight: FontWeight.w500 ),
       bodyMedium: GoogleFonts.poppins(fontSize:14.sp, color: ColorsManager.black, fontWeight: FontWeight.w500 ),
@@ -90,5 +93,99 @@ class ThemeManager{
     )
     ,
   );
-  static final ThemeData dark = ThemeData();
+  static final ThemeData dark = ThemeData(
+
+    primaryColor: ColorsManager.primaryDark,
+    dividerColor: ColorsManager.blue,
+    iconTheme: IconThemeData(color: ColorsManager.blue,),
+    appBarTheme: AppBarTheme(
+        iconTheme: IconThemeData(
+          color: ColorsManager.darkBlue,
+        ),
+        backgroundColor: ColorsManager.primaryDark,
+        centerTitle: true,
+        titleTextStyle: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500, color: ColorsManager.blue)
+    ),
+    scaffoldBackgroundColor: ColorsManager.primaryDark,
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: ColorsManager.primaryDark,
+        selectedItemColor: ColorsManager.darkBlue,
+        unselectedItemColor:  ColorsManager.grey
+    ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: ColorsManager.blue,
+      foregroundColor: ColorsManager.white,
+      shape: CircleBorder(),
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+prefixIconColor: ColorsManager.greyD6,
+      suffixIconColor: ColorsManager.greyD6,
+      labelStyle: GoogleFonts.roboto(fontSize: 16.sp, fontWeight: FontWeight.w500, color: ColorsManager.greyD6,),
+      hintStyle: GoogleFonts.roboto(fontSize: 16.sp, fontWeight: FontWeight.w500, color: ColorsManager.greyD6,),
+
+      enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16.r),
+          borderSide: BorderSide(color: ColorsManager.blue, width: 1.w)
+      ),
+      focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16.r),
+          borderSide: BorderSide(color: ColorsManager.blue, width: 1.w)
+      ),
+      errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16.r),
+          borderSide: BorderSide(color: ColorsManager.red, width: 1.w)
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16.r),
+          borderSide: BorderSide(color: ColorsManager.red, width: 1.w)
+      ),
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16.r)
+            ),
+            backgroundColor: ColorsManager.blue,
+            foregroundColor: ColorsManager.white,
+            textStyle: GoogleFonts.inter(fontSize: 20.sp, fontWeight: FontWeight.w500, color: ColorsManager.white)
+        )
+    ),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+
+            shape: RoundedRectangleBorder(
+
+                borderRadius: BorderRadius.circular(16.r),
+                side: BorderSide(
+                    color: ColorsManager.darkBlue,
+                    width: 2.w
+                )
+            )
+        )
+    ),
+    cardTheme:  CardThemeData(
+
+        color: ColorsManager.primaryDark,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.r),
+          side:BorderSide(color: ColorsManager.blue)
+        )
+    ),
+    textTheme: TextTheme(
+      headlineSmall: GoogleFonts.poppins(
+          fontWeight: FontWeight.w600,
+          fontSize: 16.sp,
+          color: ColorsManager.blue),
+
+      titleSmall: GoogleFonts.poppins(fontSize: 14.sp, color: ColorsManager.white, fontWeight: FontWeight.w400),
+      titleMedium: GoogleFonts.poppins(fontSize: 20.sp, color: ColorsManager.white, fontWeight: FontWeight.w500),
+      bodySmall: GoogleFonts.inter(fontSize:16.sp, color: ColorsManager.white, fontWeight: FontWeight.w500 ),
+      bodyMedium: GoogleFonts.poppins(fontSize:14.sp, color: ColorsManager.white, fontWeight: FontWeight.w500 ),
+      labelSmall: GoogleFonts.poppins(fontSize:14.sp, color: ColorsManager.grey, fontWeight: FontWeight.w400 ),
+      labelMedium: GoogleFonts.poppins(fontSize:16.sp, color: ColorsManager.white, fontWeight: FontWeight.w500 ),
+
+    )
+    ,
+  );
 }

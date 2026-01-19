@@ -16,6 +16,7 @@ class FavouriteTab extends StatelessWidget {
         child: Column(
           children: [
             CustomTextFormField(hintText: "Search For Event"),
+            SizedBox(height: 16.h,),
             Expanded(
 
               child: ListView.separated(

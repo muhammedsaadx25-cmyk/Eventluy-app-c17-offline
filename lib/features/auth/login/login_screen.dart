@@ -5,6 +5,7 @@ import 'package:evently/core/routes_manager.dart';
 import 'package:evently/core/utils/validator.dart';
 import 'package:evently/core/widgets/custom_elevated_button.dart';
 import 'package:evently/core/widgets/custom_text_form_field.dart';
+import 'package:evently/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -38,8 +39,9 @@ class _LoginScreenState extends State<LoginScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    AppLocalizations appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: Text("Login")),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.login)),
       body: Padding(
         padding: REdgeInsets.symmetric(horizontal: 16),
         child: Form(
@@ -51,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
               CustomTextFormField(
                 validator: Validator.validateEmail,
                 controller: _emailController,
-                labelText: "Email",
+                labelText: appLocalizations.email,
                 prefixIcon: Icon(Icons.email),
               ),
 
@@ -59,19 +61,19 @@ class _LoginScreenState extends State<LoginScreen> {
               CustomTextFormField(
                 validator: Validator.validatePasswrod,
                 controller: _passwordController,
-                labelText: "Password",
+                labelText: appLocalizations.password,
                 prefixIcon: Icon(Icons.lock),
                 suffixIcon: Icon(Icons.visibility),
               ),
               SizedBox(height: 16.h),
 
-              CustomElevatedButton(text: "Login", onPress:_login),
+              CustomElevatedButton(text: appLocalizations.login, onPress:_login),
               SizedBox(height: 16.h,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Don’t Have Account? ", style: Theme.of(context).textTheme.bodySmall,),
-                  CustomTextButton(text: "Create Account", onTap: (){
+                  Text(appLocalizations.dont_have_an_account, style: Theme.of(context).textTheme.bodySmall,),
+                  CustomTextButton(text: appLocalizations.sign_up, onTap: (){
                     Navigator.pushReplacementNamed(context, RoutesManager.register);
                   }),
 
@@ -88,7 +90,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                  Image.asset(IconAssets.googleIcon),
-                  Text("Login With Google", style: GoogleFonts.inter(fontSize: 20.sp, fontWeight: FontWeight.w500, color: ColorsManager.blue),)
+                  SizedBox(width: 16.w,),
+                  Text(appLocalizations.sign_up_with_google, style: GoogleFonts.inter(fontSize: 20.sp, fontWeight: FontWeight.w500, color: ColorsManager.blue),)
                 ],
               ))
 

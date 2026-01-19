@@ -15,21 +15,11 @@ class CreateEventScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Add Event"),
-        leading: Container(
-          alignment: Alignment.center,
-          width: 24.w,
-          height: 24.h,
-          decoration: BoxDecoration(
-            color: ColorsManager.white,
-            borderRadius: BorderRadius.circular(12.r),
-          ),
-
-          child: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(Icons.arrow_back_ios),
-          ),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_ios),
         ),
       ),
       body: Padding(

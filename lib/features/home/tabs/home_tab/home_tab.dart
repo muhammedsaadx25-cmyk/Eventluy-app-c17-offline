@@ -64,6 +64,7 @@ class _HomeTabState extends State<HomeTab> {
             ),
             SizedBox(height: 24,),
          CustomTabBar(),
+           SizedBox(height: 16.h,),
            Expanded(
              child: ListView.separated(
                  itemBuilder: (context, index)=> EventItem(event: EventModel(category: CategoryModel.categories[0], title: "Meeting for Updating The Development Method ", description: "Meeting for Updating The Development Method ", date: DateTime.now(), time: TimeOfDay.now()),),

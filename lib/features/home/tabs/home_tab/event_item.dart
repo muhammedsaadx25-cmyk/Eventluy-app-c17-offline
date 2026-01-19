@@ -49,10 +49,7 @@ class _EventItemState extends State<EventItem> {
           Card(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(widget.event.date.getFormattedDate, style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16.sp,
-                    color: ColorsManager.darkBlue),),
+                child: Text(widget.event.date.getFormattedDate, style:Theme.of(context).textTheme.headlineSmall,),
               )),
           Spacer(),
           Card(

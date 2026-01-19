@@ -16,7 +16,7 @@ final VoidCallback onTap;
         text,
         style: GoogleFonts.inter(
             fontSize: 15.sp,
-            color: ColorsManager.darkBlue,
+            color: ColorsManager.blue,
             fontWeight: FontWeight.bold,
             decoration: TextDecoration.underline,
             decorationColor: ColorsManager.blue,

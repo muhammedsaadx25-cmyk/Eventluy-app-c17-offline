@@ -22,6 +22,7 @@ class ProfileTab extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(8),
             decoration: BoxDecoration(
+              border: Border.all(width: 2, color: Theme.of(context).dividerColor),
               color:Theme.of(context).primaryColor,
               borderRadius: BorderRadius.circular(16.r)
             ),
@@ -40,7 +41,9 @@ class ProfileTab extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color:Theme.of(context).primaryColor,
+                border: Border.all(width: 2, color: Theme.of(context).dividerColor),
+
+                color:Theme.of(context).primaryColor,
               borderRadius: BorderRadius.circular(16.r)
             ),
             child: Row(
@@ -69,6 +72,8 @@ class ProfileTab extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(8),
             decoration: BoxDecoration(
+                border: Border.all(width: 2, color: Theme.of(context).dividerColor),
+
                 color:Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.circular(16.r)
             ),

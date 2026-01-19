@@ -5,6 +5,7 @@ import 'package:evently/core/utils/validator.dart';
 import 'package:evently/core/widgets/custom_elevated_button.dart';
 import 'package:evently/core/widgets/custom_text_button.dart';
 import 'package:evently/core/widgets/custom_text_form_field.dart';
+import 'package:evently/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,6 +18,7 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+ late AppLocalizations appLocalizations = AppLocalizations.of(context)!;
 late TextEditingController _nameController ;
 
 late TextEditingController _emailController ;
@@ -44,8 +46,8 @@ GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Register")),
+     return Scaffold(
+      appBar: AppBar(title: Text(appLocalizations.register)),
       body: Padding(
         padding: REdgeInsets.symmetric(horizontal: 16),
         child: Form(
@@ -64,14 +66,14 @@ GlobalKey<FormState> _formKey = GlobalKey<FormState>();
               CustomTextFormField(
                validator: Validator.validateEmail,
                 controller: _emailController,
-                labelText: "E-mail",
+                labelText: appLocalizations.email,
                 prefixIcon: Icon(Icons.mail),
               ),
               SizedBox(height: 16.h),
               CustomTextFormField(
                 validator: Validator.validatePasswrod,
                 controller: _passwordController,
-                labelText: "Password",
+                labelText: appLocalizations.password,
                 prefixIcon: Icon(Icons.lock),
                 suffixIcon: Icon(Icons.visibility),
               ),
