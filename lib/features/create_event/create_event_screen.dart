@@ -4,12 +4,20 @@ import 'package:evently/core/widgets/custom_elevated_button.dart';
 import 'package:evently/core/widgets/custom_tab_bar.dart';
 import 'package:evently/core/widgets/custom_text_button.dart';
 import 'package:evently/core/widgets/custom_text_form_field.dart';
+import 'package:evently/extensions/date_ex.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CreateEventScreen extends StatelessWidget {
+class CreateEventScreen extends StatefulWidget {
   const CreateEventScreen({super.key});
 
+  @override
+  State<CreateEventScreen> createState() => _CreateEventScreenState();
+}
+
+class _CreateEventScreenState extends State<CreateEventScreen> {
+  DateTime eventDateTime = DateTime.now();
+  TimeOfDay tempTime = TimeOfDay.now();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +58,7 @@ class CreateEventScreen extends StatelessWidget {
                   style: Theme.of(context).textTheme.labelMedium,
                 ),
                 Spacer(),
-                CustomTextButton(text: "Choose Date", onTap: () {}),
+                CustomTextButton(text:eventDateTime.toFormattedDate, onTap: _chooseEventDate),
               ],
             ),
             SizedBox(height: 16.h),
@@ -63,7 +71,7 @@ class CreateEventScreen extends StatelessWidget {
                   style: Theme.of(context).textTheme.labelMedium,
                 ),
                 Spacer(),
-                CustomTextButton(text: "Choose Time", onTap: () {}),
+                CustomTextButton(text: eventDateTime.getFormattedTime, onTap: _chooseEventTime),
               ],
             ),
             Spacer(),
@@ -72,5 +80,20 @@ class CreateEventScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+  void _chooseEventDate()async {
+   eventDateTime = await  showDatePicker(context: context, firstDate: DateTime.now(), lastDate: DateTime.now().add(Duration(days: 365))) ?? eventDateTime;
+eventDateTime = eventDateTime.copyWith(hour: tempTime.hour, minute: tempTime.minute);
+   setState(() {
+
+   });
+  }
+
+  void _chooseEventTime()async {
+   tempTime = await  showTimePicker(context: context, initialTime: TimeOfDay.now()) ?? tempTime;
+   eventDateTime = eventDateTime.copyWith(hour: tempTime.hour, minute: tempTime.minute);
+   setState(() {
+
+   });
   }
 }

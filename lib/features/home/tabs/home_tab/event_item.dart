@@ -49,7 +49,7 @@ class _EventItemState extends State<EventItem> {
           Card(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(widget.event.date.getFormattedDate, style:Theme.of(context).textTheme.headlineSmall,),
+                child: Text(widget.event.date.getDayMonthFromDateTime, style:Theme.of(context).textTheme.headlineSmall,),
               )),
           Spacer(),
           Card(
