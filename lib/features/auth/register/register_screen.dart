@@ -1,11 +1,14 @@
 import 'package:evently/core/resources/assets_manager.dart';
 import 'package:evently/core/resources/colors_mnaager.dart';
 import 'package:evently/core/routes_manager.dart';
+import 'package:evently/core/utils/ui_utils.dart';
 import 'package:evently/core/utils/validator.dart';
 import 'package:evently/core/widgets/custom_elevated_button.dart';
 import 'package:evently/core/widgets/custom_text_button.dart';
 import 'package:evently/core/widgets/custom_text_form_field.dart';
 import 'package:evently/l10n/app_localizations.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -118,7 +121,28 @@ GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
 
 
-  void  _createAccount() {
+  void  _createAccount()async {
    if(_formKey.currentState?.validate() == false) return;
+   try{
+    UIUtils.showLoading(context, dismissible: false);
+     UserCredential userCredential = await FirebaseAuth.instance
+         .createUserWithEmailAndPassword(
+         email: _emailController.text,
+         password: _passwordController.text);
+   UIUtils.hideDialog(context);
+ UIUtils.showToastMessage(message: "User Created Successfully", bgColor: Colors.green, fgColor: Colors.white);
+Navigator.pushReplacementNamed(context, RoutesManager.login);
+   }on FirebaseAuthException catch(exception){
+     UIUtils.hideDialog(context);
+     if(exception.code == 'weak-password'){
+       UIUtils.showToastMessage(message: 'The password provided is too weak.', bgColor: Colors.red, fgColor: Colors.white);
+
+     }else if(exception.code == 'email-already-in-use'){
+       UIUtils.showToastMessage(message: 'The account already exists for that email.', bgColor: Colors.red, fgColor: Colors.white);
+
+     }
+   }catch(exception){
+     print(exception.toString());
+   }
   }
 }

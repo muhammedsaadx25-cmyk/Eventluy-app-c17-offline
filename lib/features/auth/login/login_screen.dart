@@ -1,11 +1,12 @@
-
 import 'package:evently/core/resources/assets_manager.dart';
 import 'package:evently/core/resources/colors_mnaager.dart';
 import 'package:evently/core/routes_manager.dart';
+import 'package:evently/core/utils/ui_utils.dart';
 import 'package:evently/core/utils/validator.dart';
 import 'package:evently/core/widgets/custom_elevated_button.dart';
 import 'package:evently/core/widgets/custom_text_form_field.dart';
 import 'package:evently/l10n/app_localizations.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,6 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   void initState() {
     // TODO: implement initState
@@ -33,10 +35,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
- _emailController.dispose();
- _passwordController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     AppLocalizations appLocalizations = AppLocalizations.of(context)!;
@@ -67,34 +70,51 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               SizedBox(height: 16.h),
 
-              CustomElevatedButton(text: appLocalizations.login, onPress:_login),
-              SizedBox(height: 16.h,),
+              CustomElevatedButton(
+                text: appLocalizations.login,
+                onPress: _login,
+              ),
+              SizedBox(height: 16.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(appLocalizations.dont_have_an_account, style: Theme.of(context).textTheme.bodySmall,),
-                  CustomTextButton(text: appLocalizations.sign_up, onTap: (){
-                    Navigator.pushReplacementNamed(context, RoutesManager.register);
-                  }),
-
+                  Text(
+                    appLocalizations.dont_have_an_account,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                  CustomTextButton(
+                    text: appLocalizations.sign_up,
+                    onTap: () {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        RoutesManager.register,
+                      );
+                    },
+                  ),
                 ],
               ),
-              SizedBox(height: 16.h,),
+              SizedBox(height: 16.h),
               OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-
-
-                    padding: REdgeInsets.symmetric(vertical: 16)
-                  ),
-                  onPressed: (){}, child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                 Image.asset(IconAssets.googleIcon),
-                  SizedBox(width: 16.w,),
-                  Text(appLocalizations.sign_up_with_google, style: GoogleFonts.inter(fontSize: 20.sp, fontWeight: FontWeight.w500, color: ColorsManager.blue),)
-                ],
-              ))
-
+                style: OutlinedButton.styleFrom(
+                  padding: REdgeInsets.symmetric(vertical: 16),
+                ),
+                onPressed: () {},
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(IconAssets.googleIcon),
+                    SizedBox(width: 16.w),
+                    Text(
+                      appLocalizations.sign_up_with_google,
+                      style: GoogleFonts.inter(
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w500,
+                        color: ColorsManager.blue,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -102,8 +122,22 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-
-  void _login(){
-    if(_formKey.currentState?.validate() == false) return ;
+  void _login()async {
+    if (_formKey.currentState?.validate() == false) return;
+   try {
+      UIUtils.showLoading(context);
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+      UIUtils.hideDialog(context);
+      UIUtils.showToastMessage(message: "User Logged-In Successfully",
+          bgColor: Colors.green,
+          fgColor: Colors.white);
+      Navigator.pushReplacementNamed(context, RoutesManager.homeScreen);
+    }on FirebaseAuthException catch(exception){
+   UIUtils.hideDialog(context);UIUtils.showToastMessage(message: "Wrong email or password", bgColor: Colors.red, fgColor: Colors.white);
+   }
   }
 }

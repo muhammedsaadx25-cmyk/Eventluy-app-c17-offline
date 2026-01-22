@@ -1,14 +1,21 @@
 import 'package:evently/core/resources/assets_manager.dart';
 import 'package:evently/core/resources/colors_mnaager.dart';
+import 'package:evently/core/routes_manager.dart';
 import 'package:evently/providers/lang_provider.dart';
 import 'package:evently/providers/theme_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-class ProfileTab extends StatelessWidget {
+class ProfileTab extends StatefulWidget {
   const ProfileTab({super.key});
 
+  @override
+  State<ProfileTab> createState() => _ProfileTabState();
+}
+
+class _ProfileTabState extends State<ProfileTab> {
   @override
   Widget build(BuildContext context) {
   ThemeMode activeTheme = ThemeMode.light;
@@ -145,30 +152,38 @@ class ProfileTab extends StatelessWidget {
             ),
           ),
           SizedBox(height:16.h ,),
-          Container(
-            padding: EdgeInsets.all(8),
-            decoration: BoxDecoration(
-                border: Border.all(width: 2, color: Theme.of(context).dividerColor),
+          InkWell(
+            onTap: _logout,
+            child: Container(
+              padding: EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                  border: Border.all(width: 2, color: Theme.of(context).dividerColor),
 
-                color:Theme.of(context).primaryColor,
-                borderRadius: BorderRadius.circular(16.r)
-            ),
-            child: Row(
-              children: [
-                Text("Logout", style: Theme.of(context).textTheme.labelMedium,),
-                Spacer(),
-
-
-
-           Icon(Icons.logout, color: ColorsManager.red,)
+                  color:Theme.of(context).primaryColor,
+                  borderRadius: BorderRadius.circular(16.r)
+              ),
+              child: Row(
+                children: [
+                  Text("Logout", style: Theme.of(context).textTheme.labelMedium,),
+                  Spacer(),
 
 
-              ],
+
+             Icon(Icons.logout, color: ColorsManager.red,)
+
+
+                ],
+              ),
             ),
           ),
 
         ],
       ),
     );
+  }
+
+  void _logout() {
+    FirebaseAuth.instance.signOut();
+Navigator.pushReplacementNamed(context, RoutesManager.login);
   }
 }
