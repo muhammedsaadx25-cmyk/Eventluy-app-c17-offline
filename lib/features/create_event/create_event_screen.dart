@@ -1,10 +1,15 @@
 import 'package:evently/core/resources/assets_manager.dart';
 import 'package:evently/core/resources/colors_mnaager.dart';
+import 'package:evently/core/utils/ui_utils.dart';
 import 'package:evently/core/widgets/custom_elevated_button.dart';
 import 'package:evently/core/widgets/custom_tab_bar.dart';
 import 'package:evently/core/widgets/custom_text_button.dart';
 import 'package:evently/core/widgets/custom_text_form_field.dart';
 import 'package:evently/extensions/date_ex.dart';
+import 'package:evently/firebase/firebase_service.dart';
+import 'package:evently/models/category_model.dart';
+import 'package:evently/models/event_model.dart';
+import 'package:evently/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -18,6 +23,24 @@ class CreateEventScreen extends StatefulWidget {
 class _CreateEventScreenState extends State<CreateEventScreen> {
   DateTime eventDateTime = DateTime.now();
   TimeOfDay tempTime = TimeOfDay.now();
+  late TextEditingController _titleController;
+  late TextEditingController _descriptionController;
+  CategoryModel selectedCategory = CategoryModel.categories[0];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _titleController = TextEditingController();
+    _descriptionController = TextEditingController();
+  }
+@override
+  void dispose() {
+   _titleController.dispose();
+   _descriptionController.dispose();
+    super.dispose();
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,15 +61,28 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
             Image.asset(ImageAssets.sportsLight),
 
             SizedBox(height: 16.h),
-            CustomTabBar(),
+            CustomTabBar(
+              categories: CategoryModel.categories,
+              onCategoryItemClicked: (category){
+                selectedCategory = category;
+                print(selectedCategory.name);
+                setState(() {
+
+                });
+              },
+            ),
             SizedBox(height: 16.h),
             Text("Title", style: Theme.of(context).textTheme.labelMedium),
             SizedBox(height: 8.h),
-            CustomTextFormField(hintText: "Event Title"),
+            CustomTextFormField(
+                controller: _titleController,
+                hintText: "Event Title"),
             SizedBox(height: 16.h),
             Text("Description", style: Theme.of(context).textTheme.labelMedium),
             SizedBox(height: 8.h),
-            CustomTextFormField(hintText: "Event Description", lines: 4),
+            CustomTextFormField(
+                controller: _descriptionController,
+                hintText: "Event Description", lines: 4),
 
             SizedBox(height: 16.h),
             Row(
@@ -58,7 +94,10 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                   style: Theme.of(context).textTheme.labelMedium,
                 ),
                 Spacer(),
-                CustomTextButton(text:eventDateTime.toFormattedDate, onTap: _chooseEventDate),
+                CustomTextButton(
+                  text: eventDateTime.toFormattedDate,
+                  onTap: _chooseEventDate,
+                ),
               ],
             ),
             SizedBox(height: 16.h),
@@ -71,29 +110,60 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                   style: Theme.of(context).textTheme.labelMedium,
                 ),
                 Spacer(),
-                CustomTextButton(text: eventDateTime.getFormattedTime, onTap: _chooseEventTime),
+                CustomTextButton(
+                  text: eventDateTime.getFormattedTime,
+                  onTap: _chooseEventTime,
+                ),
               ],
             ),
             Spacer(),
-            CustomElevatedButton(text: "Add Event", onPress: () {}),
+            CustomElevatedButton(text: "Add Event", onPress: _createEvent),
           ],
         ),
       ),
     );
   }
-  void _chooseEventDate()async {
-   eventDateTime = await  showDatePicker(context: context, firstDate: DateTime.now(), lastDate: DateTime.now().add(Duration(days: 365))) ?? eventDateTime;
-eventDateTime = eventDateTime.copyWith(hour: tempTime.hour, minute: tempTime.minute);
-   setState(() {
 
-   });
+  void _chooseEventDate() async {
+    eventDateTime =
+        await showDatePicker(
+          context: context,
+          firstDate: DateTime.now(),
+          lastDate: DateTime.now().add(Duration(days: 365)),
+        ) ??
+        eventDateTime;
+    eventDateTime = eventDateTime.copyWith(
+      hour: tempTime.hour,
+      minute: tempTime.minute,
+    );
+    setState(() {});
   }
 
-  void _chooseEventTime()async {
-   tempTime = await  showTimePicker(context: context, initialTime: TimeOfDay.now()) ?? tempTime;
-   eventDateTime = eventDateTime.copyWith(hour: tempTime.hour, minute: tempTime.minute);
-   setState(() {
-
-   });
+  void _chooseEventTime() async {
+    tempTime =
+        await showTimePicker(context: context, initialTime: TimeOfDay.now()) ??
+        tempTime;
+    eventDateTime = eventDateTime.copyWith(
+      hour: tempTime.hour,
+      minute: tempTime.minute,
+    );
+    setState(() {});
   }
+
+  void _createEvent()async {
+
+    EventModel event = EventModel(
+      id: "",
+      ownerId: UserModel.loggedInUser!.id,
+      category: selectedCategory,
+      title: _titleController.text,
+      description: _descriptionController.text,
+      dateTime: eventDateTime,
+    );
+    UIUtils.showLoading(context);
+    await FirebaseService.addEventToFireStore(event);
+    UIUtils.hideDialog(context);
+    UIUtils.showToastMessage(message: "Event Added Successfully.", bgColor: Colors.green, fgColor: Colors.white);
+    Navigator.pop(context);
+;  }
 }

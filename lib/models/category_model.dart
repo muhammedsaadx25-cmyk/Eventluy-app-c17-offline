@@ -13,4 +13,12 @@ class CategoryModel{
     CategoryModel(id: "4", name: "Meeting", iconData: Icons.laptop_chromebook_outlined, imagePath: "imagePath"),
     CategoryModel(id: "5", name: "Exhibition", iconData: Icons.water_drop_rounded, imagePath: "imagePath"),
   ];
+ static List<CategoryModel> categoriesWithAll = [
+    CategoryModel(id: "0", name: "All", iconData: Icons.all_inclusive_outlined, imagePath: "imagePath"),
+    CategoryModel(id: "1", name: "Sports", iconData: Icons.sports_football, imagePath: "imagePath"),
+    CategoryModel(id: "2", name: "Book Club", iconData: Icons.bookmark_outlined, imagePath: "imagePath"),
+    CategoryModel(id: "3", name: "Birthday", iconData: Icons.cake, imagePath: "imagePath"),
+    CategoryModel(id: "4", name: "Meeting", iconData: Icons.laptop_chromebook_outlined, imagePath: "imagePath"),
+    CategoryModel(id: "5", name: "Exhibition", iconData: Icons.water_drop_rounded, imagePath: "imagePath"),
+  ];
 }

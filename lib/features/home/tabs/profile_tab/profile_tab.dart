@@ -1,6 +1,7 @@
 import 'package:evently/core/resources/assets_manager.dart';
 import 'package:evently/core/resources/colors_mnaager.dart';
 import 'package:evently/core/routes_manager.dart';
+import 'package:evently/models/user_model.dart';
 import 'package:evently/providers/lang_provider.dart';
 import 'package:evently/providers/theme_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -28,8 +29,8 @@ class _ProfileTabState extends State<ProfileTab> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
       Image.asset(ImageAssets.profilePic),
-          Text("Muhammed Saad", style:Theme.of(context).textTheme.titleMedium ,),
-          Text("Muhammed Saad", style:Theme.of(context).textTheme.labelSmall ,),
+          Text(UserModel.loggedInUser!.name, style:Theme.of(context).textTheme.titleMedium ,),
+          Text(UserModel.loggedInUser!.email, style:Theme.of(context).textTheme.labelSmall ,),
 
           SizedBox(height: 16.h,),
           // Container(

@@ -1,6 +1,7 @@
 import 'package:evently/core/resources/assets_manager.dart';
 import 'package:evently/core/resources/colors_mnaager.dart';
 import 'package:evently/extensions/date_ex.dart';
+import 'package:evently/firebase/firebase_service.dart';
 import 'package:evently/models/event_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,7 +9,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 class EventItem extends StatefulWidget {
-   EventItem({super.key, required this.event});
+   EventItem({super.key, required this.event,required this.markedAsFavourites });
+   bool markedAsFavourites ;
+
 EventModel event;
 
   @override
@@ -16,6 +19,7 @@ EventModel event;
 }
 
 class _EventItemState extends State<EventItem> {
+  late  bool favourite = widget.markedAsFavourites;
   List<String> months = [
     "Jan",
     "Feb",
@@ -49,7 +53,7 @@ class _EventItemState extends State<EventItem> {
           Card(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(widget.event.date.getDayMonthFromDateTime, style:Theme.of(context).textTheme.headlineSmall,),
+                child: Text(widget.event.dateTime.getDayMonthFromDateTime, style:Theme.of(context).textTheme.headlineSmall,),
               )),
           Spacer(),
           Card(
@@ -65,7 +69,18 @@ class _EventItemState extends State<EventItem> {
                         .textTheme
                         .bodyMedium,),
                   ),
-                  Icon(Icons.favorite, color: ColorsManager.darkBlue,)
+                  IconButton(onPressed: (){
+
+                    if(favourite){
+                      FirebaseService.removeEventFromFavourite(widget.event);
+                    }else{
+                      FirebaseService.addEventToFavourite(widget.event);
+                    }
+                    favourite = !favourite;
+                    setState(() {
+
+                    });
+                  }, icon: Icon(favourite ? Icons.favorite : Icons.favorite_border))
                 ],
               ),
             ),

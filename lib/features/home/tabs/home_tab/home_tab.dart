@@ -2,8 +2,10 @@ import 'package:evently/core/resources/colors_mnaager.dart';
 import 'package:evently/core/widgets/custom_tab_bar.dart';
 import 'package:evently/features/home/tabs/home_tab/event_item.dart';
 import 'package:evently/features/home/tabs/home_tab/tab_item.dart';
+import 'package:evently/firebase/firebase_service.dart';
 import 'package:evently/models/category_model.dart';
 import 'package:evently/models/event_model.dart';
+import 'package:evently/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,8 +19,11 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   int selectedIndex = 0;
+  List<EventModel> events = [];
+  CategoryModel selectedCategory = CategoryModel.categoriesWithAll[0];
   @override
   Widget build(BuildContext context) {
+
     return Container(
       child: SafeArea(
         child: Column(
@@ -35,7 +40,8 @@ class _HomeTabState extends State<HomeTab> {
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       Text(
-                        "Muhammed Saad",
+                       UserModel.loggedInUser
+                           !.name,
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ],
@@ -63,18 +69,39 @@ class _HomeTabState extends State<HomeTab> {
               ),
             ),
             SizedBox(height: 24,),
-         CustomTabBar(),
+         CustomTabBar(categories: CategoryModel.categoriesWithAll,onCategoryItemClicked:(newCategory){
+           print(newCategory.name);
+           selectedCategory = newCategory;
+           setState(() {
+
+           });
+         },),
            SizedBox(height: 16.h,),
-           Expanded(
-             child: ListView.separated(
-                 itemBuilder: (context, index)=> EventItem(event: EventModel(category: CategoryModel.categories[0], title: "Meeting for Updating The Development Method ", description: "Meeting for Updating The Development Method ", date: DateTime.now(), time: TimeOfDay.now()),),
-                 separatorBuilder: (context, index)=> SizedBox(height: 16.h,
-                 ),
-                 itemCount: 20),
-           )
+           // Expanded(
+           //   child: events.isEmpty ? Center( child: CircularProgressIndicator(),):
+           //       ,
+           // )
+            StreamBuilder(stream: FirebaseService.getEventsFromFireStore(selectedCategory),
+                builder: (context, snapshot){
+              if(snapshot.connectionState == ConnectionState.waiting){
+                return Center(child: CircularProgressIndicator(),);
+              }
+              if(snapshot.hasError){
+                return Text("Error");
+              }
+              List<EventModel> events = snapshot.data!;
+              return Expanded(child: ListView.separated(
+                      itemBuilder: (context, index)=> EventItem(event: events[index], markedAsFavourites: UserModel.loggedInUser!.favouriteEventsIds.contains(events[index].id),),
+                      separatorBuilder: (context, index)=> SizedBox(height: 16.h,
+                      ),
+                      itemCount: events.length));
+                })
+
           ],
         ),
       ),
     );
   }
+
+
 }
